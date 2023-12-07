@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 app.use(express.json({ limit: "25mb" }));
@@ -48,13 +49,10 @@ app.get("/image/:id", async (req, res) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://fadhil:fadhiltalitha@fadhilkholaf.nhkci0t.mongodb.net/testing",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
